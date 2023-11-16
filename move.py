@@ -25,7 +25,7 @@ def source(m: Move) -> int:
 
 def target(m: Move) -> int:
     """Return the target point.
-    >>> target(make_move(13, 8)
+    >>> target(make_move(13, 8))
     8
-    """ 
+    """
     return m.target
