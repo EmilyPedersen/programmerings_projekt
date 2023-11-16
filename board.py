@@ -40,3 +40,8 @@ def white(b: Board) -> list[int]:
     [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
     """
     return b.white
+
+
+def copy(b: Board) -> Board:
+    """Return a copy of the given board."""
+    return Board(list(b.black), list(b.white), b.white_plays)
