@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 @dataclass
 class Move:
-	source: int
-	target: int
+    source: int
+    target: int
 
 
 def make_move(scr: int, trg: int) -> Move:
