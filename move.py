@@ -8,7 +8,7 @@ class Move:
 
 
 def make_move(scr: int, trg: int) -> Move:
-    """Return a move between the two indicies. 
+    """Returns a move between the two indicies. 
     >>> make_move(13, 8)
     Move(source=13, target=8)
     """
@@ -16,8 +16,15 @@ def make_move(scr: int, trg: int) -> Move:
 
 
 def source(m: Move) -> int:
-    """Return the source point
+    """Returns the source point
     >>> source(make_move(13, 8))
     13
     """
     return m.source
+
+def target(m: Move) -> int:
+    """ Returns the target point
+    >>> target(make_move(13, 8)
+    8
+    """ 
+    return m.target
