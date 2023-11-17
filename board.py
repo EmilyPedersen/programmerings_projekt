@@ -42,6 +42,14 @@ def white(b: Board) -> list[int]:
     return b.white
 
 
+def is_game_over(b: Board) -> bool:
+    """Return True if the game is over.
+    >>> is_game_over(make_board())
+    False
+    """
+    return not b.black or not b.white or not legal_moves(b)
+
+
 def copy(b: Board) -> Board:
     """Return a copy of the given board."""
     return Board(list(b.black), list(b.white), b.white_plays)
