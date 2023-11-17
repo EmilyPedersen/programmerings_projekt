@@ -46,7 +46,7 @@ def white(b: Board) -> list[int]:
 def move(m: Move, b: Board) -> None:
     """Update the board to simulate a given move."""
     player = b.white if b.white_plays else b.black
-    opponent = b.black if b.white_plays else b.black
+    opponent = b.black if b.white_plays else b.white
     player.remove(m.source)
     player.append(m.target)
     if is_attack(m): 
