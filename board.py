@@ -42,6 +42,22 @@ def white(b: Board) -> list[int]:
     return b.white
 
 
+def move(m: Move, b: Board) -> None:
+	"""Update the board to simulate a given move."""
+	if b.white_plays:
+		b.white.remove(m.source)
+		b.white.append(m.target)
+	else:
+		b.black.remove(m.source)
+		b.black.append(m.source)
+	if is_attack(m):
+		enemy = (m.source + m.target) // 2
+		if b.white_plays:
+			b.black.remove(enemy)
+		else:
+			b.white.remove(enemy)
+
+
 def is_game_over(b: Board) -> bool:
     """Return True if the game is over.
     >>> is_game_over(make_board())
