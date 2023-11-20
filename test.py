@@ -33,7 +33,7 @@ assert white(b) == [14, 15, 16, 17, 19, 20, 21, 22, 23, 24, 25, 13]
 assert legal_moves(b) == move_list([(8, 18)])
 assert not is_game_over(b)
 
-move(make_move(18, 13), b)
+move(make_move(8, 18), b)
 
 assert white_plays(b)
 assert black(b) == [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 18]
