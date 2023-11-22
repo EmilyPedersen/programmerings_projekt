@@ -138,8 +138,8 @@ def _displacement_y(m: Move) -> int:
 
 
 def _column(i: int) -> int:
-    return (i-1) % 5 + 1
+    return (i-1) % 5
 
 
 def _row(i: int) -> int:
-    return (i-1) // 5 + 1
+    return (i-1) // 5
