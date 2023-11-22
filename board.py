@@ -49,34 +49,40 @@ def legal_moves(b: Board) -> list[Move]:
     >>> legal_moves(make_board())
     [Move(source=17, target=13), Move(source=18, target=13), Move(source=19, target=13)]
     """
-    free_points = [i for i in range(1, 26) if is_free(i, b)]
+    free_points = [i for i in range(1, 26) if _is_free(i, b)]
     moves = []
-    for piece_index in players_pieces(b):
-        for i in free_points:
-            move = make_move(piece_index, i)
+    for piece_index in _players_pieces(b):
+        for free_point in free_points:
+            move = make_move(piece_index, free_point)
             if is_legal(move, b):
                 moves.append(move)
     return moves
 
 
 def is_legal(m: Move, b: Board) -> bool:
-    """Return True if the move m is legal on the given board."""
-    dx = displacement_x(m)
-    dy = -displacement_y(m) if b.white_plays else displacement_y(m)
+    """Return True if the move m is legal on the given board.
+    >>> is_legal(make_move(18, 13), make_board())
+    True
+    >>> is_legal(make_move(18, 12), make_board())
+    False
+    """
+    dx = _displacement_x(m)
+    # We flip the y component for white so forward is relative to the player.
+    dy = -_displacement_y(m) if b.white_plays else _displacement_y(m)
     forward_move = dx == 0 and dy == 1
-    diagonal_move = on_diagonal(source(m)) and abs(dx) == 1 and dy == 1
-    attack = is_attack_move(m) and attack_index(m) in opponents_pieces(b)
-    return is_free(target(m), b) and (forward_move or diagonal_move or attack)
+    diagonal_move = _on_diagonal(source(m)) and abs(dx) == 1 and dy == 1
+    attack = _is_attack_move(m) and _attacked_index(m) in _opponents_pieces(b)
+    return _is_free(target(m), b) and (forward_move or diagonal_move or attack)
 
 
 def move(m: Move, b: Board) -> None:
     """Update the board to simulate a given move."""
-    player = players_pieces(b)
-    opponent = opponents_pieces(b)
-    player.remove(m.source)
-    player.append(m.target)
-    if is_attack_move(m):
-        opponent.remove(attack_index(m))
+    player = _players_pieces(b)
+    opponent = _opponents_pieces(b)
+    player.remove(source(m))
+    player.append(target(m))
+    if _is_attack_move(m):
+        opponent.remove(_attacked_index(m))
     b.white_plays = not b.white_plays
 
 
@@ -94,44 +100,46 @@ def copy(b: Board) -> Board:
 
 
 # Helpers
-def is_attack_move(m: Move) -> bool:
-    dx = displacement_x(m)
-    dy = displacement_y(m)
-    return ((abs(dx) == 2 and dy == 0 or dx == 0 and abs(dy) == 2)
-            or (on_diagonal(source(m)) and abs(dx) == 2 and abs(dy) == 2))
+def _is_attack_move(m: Move) -> bool:
+    dx = _displacement_x(m)
+    dy = _displacement_y(m)
+    horizontal = abs(dx) == 2 and dy == 0
+    vertical = dx == 0 and abs(dy) == 2
+    diagonal = _on_diagonal(source(m)) and abs(dx) == 2 and abs(dy) == 2
+    return horizontal or vertical or diagonal
 
 
-def on_diagonal(i: int) -> bool:
+def _on_diagonal(i: int) -> bool:
     return i % 2 == 1
 
 
-def is_free(i: int, b: Board) -> bool:
+def _is_free(i: int, b: Board) -> bool:
     return i not in b.white and i not in b.black
 
 
-def players_pieces(b: Board) -> list[int]:
+def _players_pieces(b: Board) -> list[int]:
     return b.white if b.white_plays else b.black
 
 
-def opponents_pieces(b: Board) -> list[int]:
+def _opponents_pieces(b: Board) -> list[int]:
     return b.black if b.white_plays else b.white
 
 
-def attack_index(m: Move) -> int:
+def _attacked_index(m: Move) -> int:
     return (source(m) + target(m)) // 2
 
 
-def displacement_x(m: Move) -> int:
-    return column(target(m)) - column(source(m))
+def _displacement_x(m: Move) -> int:
+    return _column(target(m)) - _column(source(m))
 
 
-def displacement_y(m: Move) -> int:
-    return row(target(m)) - row(source(m))
+def _displacement_y(m: Move) -> int:
+    return _row(target(m)) - _row(source(m))
 
 
-def row(i: int) -> int:
-    return (i-1) // 5 + 1
-
-
-def column(i: int) -> int:
+def _column(i: int) -> int:
     return (i-1) % 5 + 1
+
+
+def _row(i: int) -> int:
+    return (i-1) // 5 + 1
