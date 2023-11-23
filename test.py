@@ -67,9 +67,10 @@ assert are_legal_moves(b, [(4, 9), (5, 9), (8, 18), (10, 15), (11, 23)])
 assert not is_game_over(b)
 
 print('''
-The test passed successfully!
  ___ _   _  ___ ___ ___  ___ ___ 
 / __| | | |/ __/ __/ _ \/ __/ __|
 \__ \ |_| | (_| (_|  __/\__ \__ \\
 |___/\__,_|\___\___\___||___/___/
+
+The test passed successfully!
 ''')
