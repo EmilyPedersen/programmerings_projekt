@@ -68,11 +68,11 @@ def is_legal(m: Move, b: Board) -> bool:
     dx = _displacement_x(m)
     # We flip the y component for white so forward is relative to the player.
     dy = -_displacement_y(m) if b.white_plays else _displacement_y(m)
-    valid = source(m) in _players_pieces(b) and _is_free(target(m), b)
+    possible = source(m) in _players_pieces(b) and _is_free(target(m), b)
     forward_move = dx == 0 and dy == 1
     diagonal_move = _on_diagonal(source(m)) and abs(dx) == 1 and dy == 1
     attack = _is_attack_move(m) and _attacked_index(m) in _opponents_pieces(b)
-    return valid and (forward_move or diagonal_move or attack)
+    return possible and (forward_move or diagonal_move or attack)
 
 
 def move(m: Move, b: Board) -> None:
