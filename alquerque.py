@@ -16,18 +16,13 @@
 print("""
 It's time to get quirky, let's play some Alquerque!
 
-But just before we get started, let's get the game charted...
-You can hear the crow cheer, but first let's get a couple things clear...
-Get your brain in high-gear, but first let's get the rules clear...
+You can hear the crowd cheer, but first let's get the rules clear...
 
 Will you stand in the limelight or will you let the AI be white? (y/n)
-This is not the time to debate human rights,
-so please just decide if the AI should play white? (y/n)
     Please just type y or n, it's all that we need.
     You know who'd be proud of you? Frances Shand Kydd.
 
 If you need to hit the sack, will you just let the AI play black? (y/n)
-If you need to fight off an arson attack, just let the AI play black? (y/n)
     I really am feeling the rhythm and blues,
     a simple y or n, that's all you have to choose.
 
