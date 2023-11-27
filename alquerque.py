@@ -13,6 +13,29 @@
     # White has won!
     # The game is a draw...
 
+
+def ask_yes_or_no(prompt: str, repeat_prompt: str) -> bool:
+    """Ask the user a question using prompt. Accept yes, y, no or n as answers.
+    If the answer is invalid, ask the user again using repeat_prompt.
+    """
+    answer = input(prompt)
+    while answer not in ['yes', 'y', 'no', 'n']:
+        answer = input(repeat_prompt)
+    return answer in ['yes', 'y']
+
+
+def ask_for_number(prompt: str, repeat_prompt: str,
+                   minimum: int, maximum: int) -> int:
+    """Ask the user for a number using prompt.
+    Accept only numbers between minimum and maximum both inclusive.
+    If the number is invalid, ask the user again using repeat_prompt.
+    """
+    number = int(input(prompt))
+    while number < minimum or maximum < number:
+        number = int(input(repeat_prompt))
+    return number
+
+
 print("""
 It's time to get quirky, let's play some Alquerque!
 
