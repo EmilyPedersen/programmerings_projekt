@@ -36,8 +36,8 @@ def ask_for_move(b: Board) -> Move:
         if is_legal(next_move, b):
             has_found_legal_move = True
         else:
-            print("That's not quite possible, we might have an issue. If you want to make it right, here are some moves you can do.")
-            print(legal_moves(b))
+            print("That's not quite possible, we might have an issue. If you want to make it right, here are some moves you can do:")
+            print_moves(b)
 
 
 def print_board(b: Board) -> None:
@@ -59,6 +59,12 @@ def print_board(b: Board) -> None:
     print(f"{v[15]} - {v[16]} - {v[17]} - {v[18]} - {v[19]}")
     print(f"| / | \ | / | \ |")
     print(f"{v[20]} - {v[21]} - {v[22]} - {v[23]} - {v[24]}")
+
+
+def print_moves(b: Board) -> None:
+    for move in legal_moves(b):
+        print(f"{source(move)} to {target(move)}", end=", ")
+    print()
 
 
 print("\nIt's time to get quirky, let's play some Alquerque!\n")
