@@ -34,16 +34,15 @@ def print_board(b: Board):
         else:
             v += [" "]
 
-    print(f"""
-{v[0]} - {v[1]} - {v[2]} - {v[3]} - {v[4]}
-| \ | / | \ | / |
-{v[5]} - {v[6]} - {v[7]} - {v[8]} - {v[9]}
-| / | \ | / | \ |
-{v[10]} - {v[11]} - {v[12]} - {v[13]} - {v[14]}
-| \ | / | \ | / |
-{v[15]} - {v[16]} - {v[17]} - {v[18]} - {v[19]}
-| / | \ | / | \ |
-{v[20]} - {v[21]} - {v[22]} - {v[23]} - {v[24]}""")
+    print(f"{v[0]} - {v[1]} - {v[2]} - {v[3]} - {v[4]}")
+    print(f"| \ | / | \ | / |")
+    print(f"{v[5]} - {v[6]} - {v[7]} - {v[8]} - {v[9]}")
+    print(f"| / | \ | / | \ |")
+    print(f"{v[10]} - {v[11]} - {v[12]} - {v[13]} - {v[14]}")
+    print(f"| \ | / | \ | / |")
+    print(f"{v[15]} - {v[16]} - {v[17]} - {v[18]} - {v[19]}")
+    print(f"| / | \ | / | \ |")
+    print(f"{v[20]} - {v[21]} - {v[22]} - {v[23]} - {v[24]}")
 
 
 print("\nIt's time to get quirky, let's play some Alquerque!\n")
@@ -63,16 +62,16 @@ ai_difficulty = ask_for_number(
 
 print("This is the board we'll be playing tonight. Get to know it now, so you don't lose sight.\n")
 
-print("""01 - 02 - 03 - 04 - 05
-|  \ |  / |  \ |  / |
-06 - 07 - 08 - 09 - 10
-|  / |  \ |  / |  \ |
-11 - 12 - 13 - 14 - 15
-|  \ |  / |  \ |  / |
-16 - 17 - 18 - 19 - 20
-|  / |  \ |  / |  \ |
-21 - 22 - 23 - 24 - 25
-""")
+print("01 - 02 - 03 - 04 - 05")
+print("|  \ |  / |  \ |  / |")
+print("06 - 07 - 08 - 09 - 10")
+print("|  / |  \ |  / |  \ |")
+print("11 - 12 - 13 - 14 - 15")
+print("|  \ |  / |  \ |  / |")
+print("16 - 17 - 18 - 19 - 20")
+print("|  / |  \ |  / |  \ |")
+print("21 - 22 - 23 - 24 - 25")
+
 
 print("It's time to get started, find your laminar flow. Let's hope your hands are steady. Ready, set, go!\n")
 
