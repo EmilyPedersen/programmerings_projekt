@@ -89,9 +89,9 @@ if white_is_ai or black_is_ai:
 
 print("This is the board we'll be playing on tonight. Get to know it now, so you don't end up losing sight.\n")
 
-print("01 - 02 - 03 - 04 - 05")
+print("1  - 2  - 3  - 4  - 5")
 print("|  \ |  / |  \ |  / |")
-print("06 - 07 - 08 - 09 - 10")
+print("6  - 7  - 8  - 9  - 10")
 print("|  / |  \ |  / |  \ |")
 print("11 - 12 - 13 - 14 - 15")
 print("|  \ |  / |  \ |  / |")
