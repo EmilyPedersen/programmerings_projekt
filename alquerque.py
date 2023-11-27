@@ -36,6 +36,28 @@ def ask_for_number(prompt: str, repeat_prompt: str,
     return number
 
 
+def print_board(b: Board):
+    v = []
+    for index in range(1, 26):
+        if index in black(b):
+            v += ["●"]
+        elif index in white(b):
+            v += ["○"]
+        else:
+            v += [" "]
+    
+    print(f"""
+{v[0]} - {v[1]} - {v[2]} - {v[3]} - {v[4]}
+| \ | / | \ | / |
+{v[5]} - {v[6]} - {v[7]} - {v[8]} - {v[9]}
+| / | \ | / | \ |
+{v[10]} - {v[11]} - {v[12]} - {v[13]} - {v[14]}
+| \ | / | \ | / |
+{v[15]} - {v[16]} - {v[17]} - {v[18]} - {v[19]}
+| / | \ | / | \ |
+{v[20]} - {v[21]} - {v[22]} - {v[23]} - {v[24]}""")
+
+
 print("""
 It's time to get quirky, let's play some Alquerque!
 
@@ -63,17 +85,3 @@ This game was as complex as the United States national law,
 but in the end 'twas for nothing, it ended in a draw.
 """)
 
-
-print("""
-
-● - ● - ● - ● - ●
-| \ | / | \ | / |
-● - ● - ● - ● - ●
-| / | \ | / | \ |
-● - ● -   - ○ - ○
-| \ | / | \ | / |
-○ - ○ - ○ - ○ - ○
-| / | \ | / | \ |
-○ - ○ - ○ - ○ - ○
-
-""")
