@@ -85,29 +85,29 @@ print("""01 - 02 - 03 - 04 - 05
 
 print("It's time to get started, find your laminar flow. Let's hope your hands are steady. Ready, set, go!\n")
 
-print("""
-You fought with all your might and the game is now done,
-so it's a pleasure to announce that ... won!
-
-This game was as complex as the United States national law,
-but in the end 'twas for nothing, it ended in a draw.
-""")
-
 b = make_board()
 
 while not is_game_over(b): 
-    if white_plays(b) and white_is_ai and not white_plays(b) and black_is_ai:
+    print_board(b)
+    if white_plays(b):
+        print("White's turn")
+    else:
+        print("Black's turn")
+    if white_plays(b) and white_is_ai or not white_plays(b) and black_is_ai:
         move(next_move(b, ai_difficulty), b)
     else: 
         source = ask_for_number("Which piece do you want to move?", "???", 1, 25)
         target = ask_for_number("Where do you want to move your piece?", "???", 1, 25)
-        move(make_move(source, target), b)
-    print_board(b)
+        current_move = make_move(source, target)
+        if is_legal(current_move, b):
+            move(current_move, b)
+        else:
+            print("That's not quite possible, we might have an issue. If you want to make it right, here are some moves you can do.")
     
 if white(b) == []:
-    print("black has won")
+    print("You fought with all your might and the game is now done, so it's a pleasure to announce that black won!")
 elif black(b) == []:
-    print("white has won")
+    print("You fought with all your might and the game is now done, so it's a pleasure to announce that white won!")
 else: 
-    print("draw")
+    print("This game was as complex as the United States national law, but in the end 'twas for nothing, it ended in a draw.")
     
