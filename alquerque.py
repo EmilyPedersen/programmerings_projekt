@@ -40,15 +40,15 @@ def ask_for_move(b: Board) -> Move:
             print(legal_moves(b))
 
 
-def print_board(b: Board):
+def print_board(b: Board) -> None:
     v = []
     for index in range(1, 26):
         if index in black(b):
-            v += ["●"]
+            v.append("●")
         elif index in white(b):
-            v += ["○"]
+            v.append("○")
         else:
-            v += [" "]
+            v.append(" ")
 
     print(f"{v[0]} - {v[1]} - {v[2]} - {v[3]} - {v[4]}")
     print(f"| \ | / | \ | / |")
@@ -88,8 +88,7 @@ print("16 - 17 - 18 - 19 - 20")
 print("|  / |  \ |  / |  \ |")
 print("21 - 22 - 23 - 24 - 25")
 
-
-print("It's time to get started, find your laminar flow. Let's hope your hands are steady. Ready, set, go!\n")
+print("\nIt's time to get started, find your laminar flow. Let's hope your hands are steady. Ready, set, go!\n")
 
 b = make_board()
 
@@ -105,6 +104,7 @@ while not is_game_over(b):
         move(next_move(b, ai_difficulty), b)
     else:
         move(ask_for_move(b), b)
+
 print_board(b)
 
 if not white(b):
