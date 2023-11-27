@@ -30,9 +30,11 @@ def ask_for_move(b: Board) -> Move:
     has_found_legal_move = False
     while not has_found_legal_move:
         source = ask_for_number(
-            1, 25, "Which piece do you want to move?", "???")
+            1, 25, "First you must decide, which piece will become untied?", 
+            "That's not a move i'll record. You have to stay within the board")
         target = ask_for_number(
-            1, 25, "Where do you want to move your piece?", "???")
+            1, 25, "Than you must conclude, where the piece will be glued?", 
+            "That's not a move i'll record. You have to stay within the board")
         next_move = make_move(source, target)
         if is_legal(next_move, b):
             has_found_legal_move = True
@@ -79,10 +81,11 @@ white_is_ai = ask_yes_or_no(
 black_is_ai = ask_yes_or_no(
     "It look like you need to hit the sack, will you just let the AI play black? (yes/no)",
     "I'm really feeling the rhythm of the blues, a simple yes or no, that's all you have to choose.")
-ai_difficulty = ask_for_number(
-    1, 7,
-    "We crafted this software, it's a true piece of art, now you must decide, should the AI be dumb or smart? (1-7)",
-    "With an attitude like that you won't get into heaven, so please just pick a number between 1 and 7.")
+if white_is_ai or black_is_ai:
+    ai_difficulty = ask_for_number(
+        1, 7,
+        "We crafted this software, it's a true piece of art, now you must decide, should the AI be dumb or smart? (1-7)",
+        "With an attitude like that you won't get into heaven, so please just pick a number between 1 and 7.")
 
 print("This is the board we'll be playing on tonight. Get to know it now, so you don't end up losing sight.\n")
 
