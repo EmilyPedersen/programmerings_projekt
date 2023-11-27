@@ -88,16 +88,19 @@ while not is_game_over(b):
     if white_plays(b) and white_is_ai or not white_plays(b) and black_is_ai:
         move(next_move(b, ai_difficulty), b)
     else:
-        source = ask_for_number(
-            1, 25, "Which piece do you want to move?", "???")
-        target = ask_for_number(
-            1, 25, "Where do you want to move your piece?", "???")
-        current_move = make_move(source, target)
-        if is_legal(current_move, b):
-            move(current_move, b)
-        else:
-            print("That's not quite possible, we might have an issue. If you want to make it right, here are some moves you can do.")
-            print(legal_moves(b))
+        has_found_legal_move = False
+        while not has_found_legal_move:
+            source = ask_for_number(
+                1, 25, "Which piece do you want to move?", "???")
+            target = ask_for_number(
+                1, 25, "Where do you want to move your piece?", "???")  
+            current_move = make_move(source, target)
+            has_found_legal_move = is_legal(current_move, b)
+            if not has_found_legal_move:
+                print("That's not quite possible, we might have an issue. If you want to make it right, here are some moves you can do.")
+                print(legal_moves(b))  
+        move(current_move, b)
+print_board(b)
 
 if not white(b):
     print("You fought with all your might and the game is now done, so it's a pleasure to announce that black won!")
