@@ -109,7 +109,9 @@ while not is_game_over(b):
         print("  Black's turn\n")
 
     if white_plays(b) and white_is_ai or not white_plays(b) and black_is_ai:
-        move(next_move(b, ai_difficulty), b)
+        ai_move = next_move(b, ai_difficulty)
+        move(ai_move, b)
+        print(f"The computer moved from {source(ai_move)} to {target(ai_move)}\n")
     else:
         move(ask_for_move(b), b)
         print()
