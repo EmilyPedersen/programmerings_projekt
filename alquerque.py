@@ -1,3 +1,6 @@
+from board import *
+from minimax import *
+
 # Hello! Welcome to Alquerque!
 # Before we start...
     # Should the computer play white (y/n)?
@@ -57,27 +60,32 @@ def print_board(b: Board):
 | / | \ | / | \ |
 {v[20]} - {v[21]} - {v[22]} - {v[23]} - {v[24]}""")
 
+print("\nIt's time to get quirky, let's play some Alquerque!\n")
+
+print("You can hear the crowd cheer, but first let's get the rules clear...\n")
+
+white_is_ai = ask_yes_or_no("Will you stand in the limelight or will you let the AI be white? (y/n)\n", 
+                            "Please just type y or n, it's all that we need. You know who'd be proud of you? Frances Shand Kydd.\n")
+black_is_ai = ask_yes_or_no("If you need to hit the sack, will you just let the AI play black? (y/n)\n", 
+                            "I really am feeling the rhythm and blues, a simple y or n, that's all you have to choose.\n")
+ai_difficulty = ask_for_number("We crafted this software, it's a true piece of art, now decide, should the AI be dumb or smart? (1-7)\n", 
+                               "With that attitude you won't come into heaven, so please just pick a number between 1 and 7.\n", 1, 7)
+
+print("This is the board we'll be playing tonight. Get to know it now, so you don't lose sight.\n")
+
+print("""01 - 02 - 03 - 04 - 05
+|  \ |  / |  \ |  / |
+06 - 07 - 08 - 09 - 10
+|  / |  \ |  / |  \ |
+11 - 12 - 13 - 14 - 15
+|  \ |  / |  \ |  / |
+16 - 17 - 18 - 19 - 20
+|  / |  \ |  / |  \ |
+21 - 22 - 23 - 24 - 25\n""")
+
+print("It's time to get started, find your laminar flow. Let's hope your hands are steady. Ready, set, go!\n")
 
 print("""
-It's time to get quirky, let's play some Alquerque!
-
-You can hear the crowd cheer, but first let's get the rules clear...
-
-Will you stand in the limelight or will you let the AI be white? (y/n)
-    Please just type y or n, it's all that we need.
-    You know who'd be proud of you? Frances Shand Kydd.
-
-If you need to hit the sack, will you just let the AI play black? (y/n)
-    I really am feeling the rhythm and blues,
-    a simple y or n, that's all you have to choose.
-
-We crafted this software, it's a true piece of art,
-now decide, should the AI be dumb or smart? (1-7)
-    With that attitude you won't come into heaven,
-    so please just pick a number between 1 and 7.
-
-It's time to get started, find your laminar flow. Let's hope your hands are steady. Ready, set, go!
-
 You fought with all your might and the game is now done,
 so it's a pleasure to announce that ... won!
 
