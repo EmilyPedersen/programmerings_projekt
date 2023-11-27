@@ -93,3 +93,21 @@ This game was as complex as the United States national law,
 but in the end 'twas for nothing, it ended in a draw.
 """)
 
+b = make_board()
+
+while not is_game_over(b): 
+    if white_plays(b) and white_is_ai and not white_plays(b) and black_is_ai:
+        move(next_move(b, ai_difficulty), b)
+    else: 
+        source = ask_for_number("Which piece do you want to move?", "???", 1, 25)
+        target = ask_for_number("Where do you want to move your piece?", "???", 1, 25)
+        move(make_move(source, target), b)
+    print_board(b)
+    
+if white(b) == []:
+    print("black has won")
+elif black(b) == []:
+    print("white has won")
+else: 
+    print("draw")
+    
