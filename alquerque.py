@@ -40,11 +40,13 @@ def ask_for_move(b: Board) -> Move:
 
 def print_board(b: Board) -> None:
     v = []
+    black_dot = "○" if dark_mode else "●"
+    white_dot = "●" if dark_mode else "○"
     for index in range(1, 26):
         if index in black(b):
-            v.append("●")
+            v.append(black_dot)
         elif index in white(b):
-            v.append("○")
+            v.append(white_dot)
         else:
             v.append(" ")
 
@@ -69,6 +71,7 @@ print("\nIt's time to get quirky, let's play some Alquerque!\n")
 
 print("Before we start:\n")
 
+dark_mode = ask_yes_or_no("Are you using dark mode? (yes/no)")
 white_is_ai = ask_yes_or_no("Should the computer play white? (yes/no)")
 black_is_ai = ask_yes_or_no("Should the computer play black? (yes/no)")
 if white_is_ai or black_is_ai:
