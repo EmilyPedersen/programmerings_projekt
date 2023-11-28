@@ -25,7 +25,6 @@ def ask_for_number(minimum: int, maximum: int, prompt: str) -> int:
 
 def ask_for_move(b: Board) -> Move:
     """Ask the user for a legal move. Keep prompting until one is gotten."""
-    print("It's time for you to make a move.")
     has_found_legal_move = False
     while not has_found_legal_move:
         source = ask_for_number(
@@ -99,17 +98,13 @@ b = make_board()
 
 while not is_game_over(b):
     print_board(b)
-
-    if white_plays(b):
-        print("  White's turn\n")
-    else:
-        print("  Black's turn\n")
-
+    color = "white" if white_plays(b) else "black"
     if white_plays(b) and white_is_ai or not white_plays(b) and black_is_ai:
         ai_move = next_move(b, ai_difficulty)
         move(ai_move, b)
-        print(f"The computer moved from {source(ai_move)} to {target(ai_move)}\n")
+        print(f"The computer moved a {color} piece from {source(ai_move)} to {target(ai_move)}\n")
     else:
+        print(f"Make a move for {color}.")
         move(ask_for_move(b), b)
         print()
 
