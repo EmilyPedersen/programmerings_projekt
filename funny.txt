@@ -1,0 +1,33 @@
+Get in the groove, it's time for you to make a move!
+
+First you must decide, which piece will become untied?
+
+That's not a move i'll record. You have to stay within the board
+
+That's not quite possible, we might have an issue. If you want to make it right, here are some moves you can do:
+
+It's time to get quirky, let's play some Alquerque!
+
+You can hear the crowd cheer, but first let's get the rules clear...
+
+Will you step away from the limelight and let the AI play white? (yes/no)
+
+Please just type yes or no, it's all that we need. You know who'd be proud of you? Frances Shand Kydd.
+
+It look like you need to hit the sack, will you just let the AI play black? (yes/no)
+
+I'm really feeling the rhythm of the blues, a simple yes or no, that's all you have to choose.
+
+We crafted this software, it's a true piece of art, now you must decide, should the AI be dumb or smart? (1-7)
+
+With an attitude like that you won't get into heaven, so please just pick a number between 1 and 7.
+
+This is the board we'll be playing on tonight. Get to know it now, so you don't end up losing sight.
+
+It's time to get started, so find your laminar flow. Let's hope your hands are steady. Ready, set, go!
+
+You fought with all your might and the game is now done, so it's a pleasure to announce that black won!
+
+You fought with all your might and the game is now done, so it's a pleasure to announce that white won!
+
+This game was as complex as the U.S. nationality law, but in the end 'twas for nothing... it ended in a draw.
