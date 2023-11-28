@@ -8,7 +8,7 @@ def ask_yes_or_no(prompt: str) -> bool:
     """
     answer = input(prompt + '\n')
     while answer not in ['yes', 'y', 'no', 'n']:
-        answer = input("Please enter yes or no.\n")
+        answer = input("Enter yes or no.\n")
     return answer in ['yes', 'y']
 
 
@@ -19,7 +19,7 @@ def ask_for_number(minimum: int, maximum: int, prompt: str) -> int:
     """
     number = int(input(prompt + '\n'))
     while number < minimum or maximum < number:
-        number = int(input(f"Please enter a number between {minimum} and {maximum}."))
+        number = int(input(f"Enter a number between {minimum} and {maximum}."))
     return number
 
 
