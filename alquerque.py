@@ -4,7 +4,7 @@ from minimax import *
 
 def ask_yes_or_no(prompt: str) -> bool:
     """Ask the user a question using prompt. Accept yes, y, no or n as answers.
-    If the answer is invalid, ask the user again using repeat_prompt.
+    If the answer is invalid, ask the user again.
     """
     answer = input(prompt + "\n")
     while answer not in ["yes", "y", "no", "n"]:
@@ -15,7 +15,7 @@ def ask_yes_or_no(prompt: str) -> bool:
 def ask_for_number(minimum: int, maximum: int, prompt: str) -> int:
     """Ask the user for a number using prompt.
     Accept only numbers between minimum and maximum both inclusive.
-    If the number is invalid, ask the user again using repeat_prompt.
+    If the number is invalid, ask the user again.
     """
     number = int(input(prompt + "\n"))
     while number < minimum or maximum < number:
@@ -40,6 +40,7 @@ def ask_for_move(b: Board) -> Move:
 
 
 def print_board(b: Board, dark_mode: bool) -> None:
+    """Print a board in the terminal."""
     v = []
     black_dot = "○" if dark_mode else "●"
     white_dot = "●" if dark_mode else "○"
@@ -63,12 +64,14 @@ def print_board(b: Board, dark_mode: bool) -> None:
 
 
 def print_moves(b: Board) -> None:
+    """Print a list of the legal moves for a given board."""
     for legal_move in legal_moves(b):
         print(f"{source(legal_move)} to {target(legal_move)}", end=", ")
     print()
 
 
 def play_alquerque():
+    """Play a game of alquerque."""
     print("\nIt's time to get quirky, let's play some Alquerque!\n")
 
     print("Before we start:\n")
