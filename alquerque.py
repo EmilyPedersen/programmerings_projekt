@@ -27,10 +27,8 @@ def ask_for_move(b: Board) -> Move:
     """Ask the user for a legal move. Keep prompting until one is gotten."""
     has_found_legal_move = False
     while not has_found_legal_move:
-        source = ask_for_number(
-            1, 25, "What piece do you want to move?")
-        target = ask_for_number(
-            1, 25, "Where should the piece go?")
+        source = ask_for_number(1, 25, "What piece do you want to move?")
+        target = ask_for_number(1, 25, "Where should the piece go?")
         next_move = make_move(source, target)
         if is_legal(next_move, b):
             has_found_legal_move = True
@@ -71,10 +69,8 @@ print("\nIt's time to get quirky, let's play some Alquerque!\n")
 
 print("Before we start:\n")
 
-white_is_ai = ask_yes_or_no(
-    "Should the computer play white? (yes/no)")
-black_is_ai = ask_yes_or_no(
-    "Should the computer play black? (yes/no)")
+white_is_ai = ask_yes_or_no("Should the computer play white? (yes/no)")
+black_is_ai = ask_yes_or_no("Should the computer play black? (yes/no)")
 if white_is_ai or black_is_ai:
     ai_difficulty = ask_for_number(
         1, 7,
@@ -102,7 +98,8 @@ while not is_game_over(b):
     if white_plays(b) and white_is_ai or not white_plays(b) and black_is_ai:
         ai_move = next_move(b, ai_difficulty)
         move(ai_move, b)
-        print(f"The computer moved a {color} piece from {source(ai_move)} to {target(ai_move)}\n")
+        print(f"The computer moved a {color} piece from",
+              f"{source(ai_move)} to {target(ai_move)}\n")
     else:
         print(f"Make a move for {color}.")
         move(ask_for_move(b), b)
