@@ -39,7 +39,7 @@ def ask_for_move(b: Board) -> Move:
         if is_legal(next_move, b):
             has_found_legal_move = True
         else:
-            print("That isn't posible. Here are the legal moves:")
+            print("That isn't possible. Here are the legal moves:")
             print_moves(b)
     return next_move
 
@@ -87,7 +87,7 @@ if white_is_ai or black_is_ai:
         "How hard should the computer be? (1-7)",
         "Please enter a number between 1 and 7.")
 
-print("This is the board with it's indexs.\n")
+print("This is the board with it's indices.\n")
 
 print("1  - 2  - 3  - 4  - 5")
 print("|  \ |  / |  \ |  / |")
