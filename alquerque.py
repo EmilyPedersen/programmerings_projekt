@@ -38,7 +38,7 @@ def ask_for_move(b: Board) -> Move:
     return next_move
 
 
-def print_board(b: Board) -> None:
+def print_board(b: Board, dark_mode: bool) -> None:
     v = []
     black_dot = "○" if dark_mode else "●"
     white_dot = "●" if dark_mode else "○"
@@ -67,54 +67,58 @@ def print_moves(b: Board) -> None:
     print()
 
 
-print("\nIt's time to get quirky, let's play some Alquerque!\n")
+def play_alquerque():
+    print("\nIt's time to get quirky, let's play some Alquerque!\n")
 
-print("Before we start:\n")
+    print("Before we start:\n")
 
-dark_mode = ask_yes_or_no("Are you using dark mode? (yes/no)")
-white_is_ai = ask_yes_or_no("Should the computer play white? (yes/no)")
-black_is_ai = ask_yes_or_no("Should the computer play black? (yes/no)")
-if white_is_ai or black_is_ai:
-    ai_difficulty = ask_for_number(
-        1, 7,
-        "How hard should the computer be? (1-7)")
+    dark_mode = ask_yes_or_no("Are you using dark mode? (yes/no)")
+    white_is_ai = ask_yes_or_no("Should the computer play white? (yes/no)")
+    black_is_ai = ask_yes_or_no("Should the computer play black? (yes/no)")
+    if white_is_ai or black_is_ai:
+        ai_difficulty = ask_for_number(
+            1, 7,
+            "How hard should the computer be? (1-7)")
 
-print("This is the board with it's indices.\n")
+    print("This is the board with it's indices.\n")
 
-print("1  - 2  - 3  - 4  - 5")
-print("|  \ |  / |  \ |  / |")
-print("6  - 7  - 8  - 9  - 10")
-print("|  / |  \ |  / |  \ |")
-print("11 - 12 - 13 - 14 - 15")
-print("|  \ |  / |  \ |  / |")
-print("16 - 17 - 18 - 19 - 20")
-print("|  / |  \ |  / |  \ |")
-print("21 - 22 - 23 - 24 - 25\n")
+    print("1  - 2  - 3  - 4  - 5")
+    print("|  \ |  / |  \ |  / |")
+    print("6  - 7  - 8  - 9  - 10")
+    print("|  / |  \ |  / |  \ |")
+    print("11 - 12 - 13 - 14 - 15")
+    print("|  \ |  / |  \ |  / |")
+    print("16 - 17 - 18 - 19 - 20")
+    print("|  / |  \ |  / |  \ |")
+    print("21 - 22 - 23 - 24 - 25\n")
 
-print("Ready, set, go!\n")
+    print("Ready, set, go!\n")
 
-b = make_board()
+    b = make_board()
 
-while not is_game_over(b):
+    while not is_game_over(b):
+        print_board(b)
+        color = "white" if white_plays(b) else "black"
+        if white_plays(b) and white_is_ai or not white_plays(b) and black_is_ai:
+            ai_move = next_move(b, ai_difficulty)
+            move(ai_move, b)
+            print(f"The computer moved a {color} piece from",
+                  f"{source(ai_move)} to {target(ai_move)}\n")
+        else:
+            print(f"Make a move for {color}.")
+            player_move = ask_for_move(b, dark_mode)
+            move(player_move, b)
+            print()
+
     print_board(b)
-    color = "white" if white_plays(b) else "black"
-    if white_plays(b) and white_is_ai or not white_plays(b) and black_is_ai:
-        ai_move = next_move(b, ai_difficulty)
-        move(ai_move, b)
-        print(f"The computer moved a {color} piece from",
-              f"{source(ai_move)} to {target(ai_move)}\n")
+    print("    Game over\n")
+
+    if not white(b):
+        print("Black has won!")
+    elif not black(b):
+        print("White has won!")
     else:
-        print(f"Make a move for {color}.")
-        move(ask_for_move(b), b)
-        print()
+        print("It's a draw!")
 
 
-print_board(b)
-print("    Game over\n")
-
-if not white(b):
-    print("Black has won!")
-elif not black(b):
-    print("White has won!")
-else:
-    print("It's a draw!")
+play_alquerque()
