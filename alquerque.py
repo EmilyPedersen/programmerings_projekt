@@ -2,25 +2,24 @@ from board import *
 from minimax import *
 
 
-def ask_yes_or_no(prompt: str, repeat_prompt: str) -> bool:
+def ask_yes_or_no(prompt: str) -> bool:
     """Ask the user a question using prompt. Accept yes, y, no or n as answers.
     If the answer is invalid, ask the user again using repeat_prompt.
     """
     answer = input(prompt + '\n')
     while answer not in ['yes', 'y', 'no', 'n']:
-        answer = input(repeat_prompt + '\n')
+        answer = input("Please enter yes or no.\n")
     return answer in ['yes', 'y']
 
 
-def ask_for_number(minimum: int, maximum: int,
-                   prompt: str, repeat_prompt: str) -> int:
+def ask_for_number(minimum: int, maximum: int, prompt: str) -> int:
     """Ask the user for a number using prompt.
     Accept only numbers between minimum and maximum both inclusive.
     If the number is invalid, ask the user again using repeat_prompt.
     """
     number = int(input(prompt + '\n'))
     while number < minimum or maximum < number:
-        number = int(input(repeat_prompt + '\n'))
+        number = int(input(f"Please enter a number between {minimum} and {maximum}."))
     return number
 
 
@@ -30,11 +29,9 @@ def ask_for_move(b: Board) -> Move:
     has_found_legal_move = False
     while not has_found_legal_move:
         source = ask_for_number(
-            1, 25, "What piece do you want to move?", 
-            "Please enter a number between 1 and 25.")
+            1, 25, "What piece do you want to move?")
         target = ask_for_number(
-            1, 25, "Where should the piece go?", 
-            "Please enter a number between 1 and 25.")
+            1, 25, "Where should the piece go?")
         next_move = make_move(source, target)
         if is_legal(next_move, b):
             has_found_legal_move = True
@@ -76,16 +73,13 @@ print("\nIt's time to get quirky, let's play some Alquerque!\n")
 print("Before we start:\n")
 
 white_is_ai = ask_yes_or_no(
-    "Should the computer play white? (yes/no)",
-    "Please enter yes or no.")
+    "Should the computer play white? (yes/no)")
 black_is_ai = ask_yes_or_no(
-    "Should the computer play black? (yes/no)",
-    "Please enter yes or no.")
+    "Should the computer play black? (yes/no)")
 if white_is_ai or black_is_ai:
     ai_difficulty = ask_for_number(
         1, 7,
-        "How hard should the computer be? (1-7)",
-        "Please enter a number between 1 and 7.")
+        "How hard should the computer be? (1-7)")
 
 print("This is the board with it's indices.\n")
 
