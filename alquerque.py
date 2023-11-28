@@ -26,20 +26,20 @@ def ask_for_number(minimum: int, maximum: int,
 
 def ask_for_move(b: Board) -> Move:
     """Ask the user for a legal move. Keep prompting until one is gotten."""
-    print("Get in the groove, it's time for you to make a move!")
+    print("It's time for you to make a move.")
     has_found_legal_move = False
     while not has_found_legal_move:
         source = ask_for_number(
-            1, 25, "First you must decide, which piece will become untied?", 
-            "That's not a move i'll record. You have to stay within the board")
+            1, 25, "What piece do you want to move?", 
+            "Please enter a number between 1 and 25.")
         target = ask_for_number(
-            1, 25, "Than you must conclude, where the piece will be glued?", 
-            "That's not a move i'll record. You have to stay within the board")
+            1, 25, "Where should the piece go?", 
+            "Please enter a number between 1 and 25.")
         next_move = make_move(source, target)
         if is_legal(next_move, b):
             has_found_legal_move = True
         else:
-            print("That's not quite possible, we might have an issue. If you want to make it right, here are some moves you can do:")
+            print("That isn't posible. Here are the legal moves:")
             print_moves(b)
     return next_move
 
@@ -73,21 +73,21 @@ def print_moves(b: Board) -> None:
 
 print("\nIt's time to get quirky, let's play some Alquerque!\n")
 
-print("You can hear the crowd cheer, but first let's get the rules clear...\n")
+print("Before we start:\n")
 
 white_is_ai = ask_yes_or_no(
-    "Will you step away from the limelight and let the AI play white? (yes/no)",
-    "Please just type yes or no, it's all that we need. You know who'd be proud of you? Frances Shand Kydd.")
+    "Should the computer play white? (yes/no)",
+    "Please enter yes or no.")
 black_is_ai = ask_yes_or_no(
-    "It look like you need to hit the sack, will you just let the AI play black? (yes/no)",
-    "I'm really feeling the rhythm of the blues, a simple yes or no, that's all you have to choose.")
+    "Should the computer play black? (yes/no)",
+    "Please enter yes or no.")
 if white_is_ai or black_is_ai:
     ai_difficulty = ask_for_number(
         1, 7,
-        "We crafted this software, it's a true piece of art, now you must decide, should the AI be dumb or smart? (1-7)",
-        "With an attitude like that you won't get into heaven, so please just pick a number between 1 and 7.")
+        "How hard should the computer be? (1-7)",
+        "Please enter a number between 1 and 7.")
 
-print("This is the board we'll be playing on tonight. Get to know it now, so you don't end up losing sight.\n")
+print("This is the board with it's indexs.\n")
 
 print("1  - 2  - 3  - 4  - 5")
 print("|  \ |  / |  \ |  / |")
@@ -99,7 +99,7 @@ print("16 - 17 - 18 - 19 - 20")
 print("|  / |  \ |  / |  \ |")
 print("21 - 22 - 23 - 24 - 25\n")
 
-print("It's time to get started, so find your laminar flow. Let's hope your hands are steady. Ready, set, go!\n")
+print("Ready, set, go!\n")
 
 b = make_board()
 
@@ -124,8 +124,8 @@ print_board(b)
 print("    Game over\n")
 
 if not white(b):
-    print("You fought with all your might and the game is now done, so it's a pleasure to announce that black won!")
+    print("Black has won!")
 elif not black(b):
-    print("You fought with all your might and the game is now done, so it's a pleasure to announce that white won!")
+    print("White has won!")
 else:
-    print("This game was as complex as the U.S. nationality law, but in the end 'twas for nothing... it ended in a draw.")
+    print("It's a draw!")
