@@ -103,7 +103,8 @@ def play_alquerque():
     while not is_game_over(b):
         print_board(b)
         color = "white" if white_plays(b) else "black"
-        if white_plays(b) and white_is_ai or not white_plays(b) and black_is_ai:
+        if (white_plays(b) and white_is_ai
+                or not white_plays(b) and black_is_ai):
             ai_move = next_move(b, ai_difficulty)
             move(ai_move, b)
             print(f"The computer moved a {color} piece from "
