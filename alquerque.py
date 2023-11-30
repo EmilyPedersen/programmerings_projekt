@@ -2,7 +2,7 @@ from board import *
 from minimax import *
 
 
-def ask_yes_or_no(prompt: str) -> bool:  # get_bool get_int get_move
+def input_bool(prompt: str) -> bool:
     """Ask the user a question using prompt. Accept yes, y, no or n as answers.
     If the answer is invalid, ask the user again.
     """
@@ -12,7 +12,7 @@ def ask_yes_or_no(prompt: str) -> bool:  # get_bool get_int get_move
     return answer in ["yes", "y"]
 
 
-def ask_for_number(minimum: int, maximum: int, prompt: str) -> int:
+def input_int(minimum: int, maximum: int, prompt: str) -> int:
     """Ask the user for a number using prompt.
     Accept only numbers between minimum and maximum both inclusive.
     If the number is invalid, ask the user again.
@@ -24,12 +24,12 @@ def ask_for_number(minimum: int, maximum: int, prompt: str) -> int:
     return number
 
 
-def ask_for_move(b: Board) -> Move:
+def input_move(b: Board) -> Move:
     """Ask the user for a legal move. Keep prompting until one is gotten."""
     has_found_legal_move = False
     while not has_found_legal_move:
-        src = ask_for_number(1, 25, "What piece do you want to move?")
-        trg = ask_for_number(1, 25, "Where should the piece go?")
+        src = input_int(1, 25, "What piece do you want to move?")
+        trg = input_int(1, 25, "Where should the piece go?")
         player_move = make_move(src, trg)
         if is_legal(player_move, b):
             has_found_legal_move = True
@@ -41,12 +41,16 @@ def ask_for_move(b: Board) -> Move:
 
 def print_board(b: Board, dark_mode: bool) -> None:
     """Print a board in the terminal."""
+    v = []
     black_dot = "○" if dark_mode else "●"
     white_dot = "●" if dark_mode else "○"
-    v = [black_dot if i in black(b) else
-         white_dot if i in white(b) else
-         " "
-         for i in range(1, 26)]
+    for index in range(1, 26):
+        if index in black(b):
+            v.append(black_dot)
+        elif index in white(b):
+            v.append(white_dot)
+        else:
+            v.append(" ")
 
     print(f"{v[0]} - {v[1]} - {v[2]} - {v[3]} - {v[4]}")
     print(f"| \ | / | \ | / |")
@@ -72,11 +76,11 @@ def play_alquerque():
 
     print("Before we start:\n")
 
-    dark_mode = ask_yes_or_no("Are you using dark mode? (yes/no)")
-    white_is_ai = ask_yes_or_no("Should the computer play white? (yes/no)")
-    black_is_ai = ask_yes_or_no("Should the computer play black? (yes/no)")
+    dark_mode = input_bool("Are you using dark mode? (yes/no)")
+    white_is_ai = input_bool("Should the computer play white? (yes/no)")
+    black_is_ai = input_bool("Should the computer play black? (yes/no)")
     if white_is_ai or black_is_ai:
-        ai_difficulty = ask_for_number(
+        ai_difficulty = input_int(
             1, 7,
             "How hard should the computer be? (1-7)")
 
@@ -107,7 +111,7 @@ def play_alquerque():
                   f"{source(ai_move)} to {target(ai_move)}")
         else:
             print(f"Make a move for {color}.")
-            player_move = ask_for_move(b, dark_mode)
+            player_move = input_move(b, dark_mode)
             move(player_move, b)
         print()
 
