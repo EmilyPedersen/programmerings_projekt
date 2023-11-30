@@ -83,17 +83,18 @@ def play_alquerque():
 
     print("This is the game board with it's indices.\n")
 
-    print("1  - 2  - 3  - 4  - 5")
-    print("|  \ |  / |  \ |  / |")
-    print("6  - 7  - 8  - 9  - 10")
-    print("|  / |  \ |  / |  \ |")
-    print("11 - 12 - 13 - 14 - 15")
-    print("|  \ |  / |  \ |  / |")
-    print("16 - 17 - 18 - 19 - 20")
-    print("|  / |  \ |  / |  \ |")
-    print("21 - 22 - 23 - 24 - 25\n")
+    print("1  - 2  - 3  - 4  - 5",
+          "|  \ |  / |  \ |  / |",
+          "6  - 7  - 8  - 9  - 10",
+          "|  / |  \ |  / |  \ |",
+          "11 - 12 - 13 - 14 - 15",
+          "|  \ |  / |  \ |  / |",
+          "16 - 17 - 18 - 19 - 20",
+          "|  / |  \ |  / |  \ |",
+          "21 - 22 - 23 - 24 - 25",
+          sep="\n")
 
-    print("Ready, set, go!\n")
+    print("\nReady, set, go!\n")
 
     b = make_board()
 
