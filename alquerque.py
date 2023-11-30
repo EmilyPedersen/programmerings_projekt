@@ -41,16 +41,12 @@ def input_move(b: Board) -> Move:
 
 def print_board(b: Board, dark_mode: bool) -> None:
     """Print a board in the terminal."""
-    v = []
     black_dot = "○" if dark_mode else "●"
     white_dot = "●" if dark_mode else "○"
-    for index in range(1, 26):
-        if index in black(b):
-            v.append(black_dot)
-        elif index in white(b):
-            v.append(white_dot)
-        else:
-            v.append(" ")
+    v = [black_dot if i in black(b) else
+         white_dot if i in white(b) else
+         " "
+         for i in range(1, 26)]
 
     print(f"{v[0]} - {v[1]} - {v[2]} - {v[3]} - {v[4]}")
     print(f"| \ | / | \ | / |")
