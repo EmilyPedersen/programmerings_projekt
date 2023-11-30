@@ -2,7 +2,7 @@ from board import *
 from minimax import *
 
 
-def ask_yes_or_no(prompt: str) -> bool:
+def ask_yes_or_no(prompt: str) -> bool: #get_bool get_int get_move
     """Ask the user a question using prompt. Accept yes, y, no or n as answers.
     If the answer is invalid, ask the user again.
     """
@@ -18,7 +18,7 @@ def ask_for_number(minimum: int, maximum: int, prompt: str) -> int:
     If the number is invalid, ask the user again.
     """
     number = int(input(prompt + "\n"))
-    while number < minimum or maximum < number:
+    while not minimum <= number <= maximum:
         number = int(input(f"Please enter a number between"
                            f"{minimum} and {maximum}.\n"))
     return number
@@ -101,7 +101,7 @@ def play_alquerque():
     b = make_board()
 
     while not is_game_over(b):
-        print_board(b)
+        print_board(b, dark_mode)
         color = "white" if white_plays(b) else "black"
         if (white_plays(b) and white_is_ai
                 or not white_plays(b) and black_is_ai):
@@ -115,7 +115,7 @@ def play_alquerque():
             move(player_move, b)
         print()
 
-    print_board(b)
+    print_board(b, dark_mode)
     print("    Game over\n")
 
     if not white(b):
