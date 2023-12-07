@@ -6,8 +6,8 @@ def input_bool(prompt: str) -> bool:
     """Ask the user a question using prompt. Accept yes, y, no or n as answers.
     If the answer is invalid, ask the user again.
     """
-    answer = input(prompt + " (y/n)\n") #.lower()
-    while answer not in ["yes", "y", "no", "n"]: 
+    answer = input(f"{prompt} (y/n)\n")  # .lower()
+    while answer not in ["yes", "y", "no", "n"]:
         answer = input("Please enter yes or no.\n")
     return answer in ["yes", "y"]
 
@@ -17,16 +17,16 @@ def input_int(minimum: int, maximum: int, prompt: str) -> int:
     Accept only numbers between minimum and maximum both inclusive.
     If the number is invalid, ask the user again.
     """
-    number = int(input(prompt + f" ({minimum}-{maximum})\n"))
+    number = int(input(f"{prompt} ({minimum}-{maximum})\n"))
     while not minimum <= number <= maximum:
-        number = int(input(f"Please enter a number between" #from/to og intet please
+        number = int(input(f"Please enter a number between"  # from/to og intet please
                            f" {minimum} and {maximum}.\n"))
     return number
 
 
 def input_move(b: Board) -> Move:
     """Ask the user for a legal move. Keep prompting until one is gotten."""
-    has_found_legal_move = False #Dumt navn
+    has_found_legal_move = False  # Dumt navn
     while not has_found_legal_move:
         src = input_int(1, 25, "What piece do you want to move?")
         trg = input_int(1, 25, "Where should the piece go?")
@@ -34,7 +34,8 @@ def input_move(b: Board) -> Move:
         if is_legal(player_move, b):
             has_found_legal_move = True
         else:
-            print("That isn't possible. Here are the legal moves:") #The moves you can make
+            # The moves you can make
+            print("That isn't possible. Here are the legal moves:")
             print_moves(b)
     return player_move
 
@@ -56,13 +57,13 @@ def print_board(b: Board, dark_mode: bool) -> None:
           "| \ | / | \ | / |",
           f"{v[15]} - {v[16]} - {v[17]} - {v[18]} - {v[19]}",
           "| / | \ | / | \ |",
-          f"{v[20]} - {v[21]} - {v[22]} - {v[23]} - {v[24]}", 
+          f"{v[20]} - {v[21]} - {v[22]} - {v[23]} - {v[24]}",
           sep="\n")
 
 
 def print_moves(b: Board) -> None:
     """Print a list of the legal moves for a given board."""
-    for legal_move in legal_moves(b): #Find en god løsning usen "," til sidst
+    for legal_move in legal_moves(b):  # Find en god løsning usen "," til sidst
         print(f"{source(legal_move)} to {target(legal_move)}", end=", ")
     print()
 
@@ -79,7 +80,7 @@ def play_alquerque():
     if white_is_ai or black_is_ai:
         ai_difficulty = input_int(1, 7, "How hard should the computer be?")
 
-    print("This is the game board with it's indices.\n")
+    print("\nThis is the game board with it's indices.\n")
 
     print("1  - 2  - 3  - 4  - 5",
           "|  \ |  / |  \ |  / |",
@@ -92,6 +93,9 @@ def play_alquerque():
           "21 - 22 - 23 - 24 - 25",
           sep="\n")
 
+    print("\nTo quit the game simply enter 'q' (or any non number)",
+          "and the program will quit (crash).")
+
     print("\nReady, set, go!\n")
 
     b = make_board()
@@ -100,8 +104,8 @@ def play_alquerque():
         print_board(b, dark_mode)
         color = "white" if white_plays(b) else "black"
         if (white_plays(b) and white_is_ai
-                or not white_plays(b) and black_is_ai): #Flyt ind
-            ai_move = next_move(b, ai_difficulty) #ik kald det ai
+                or not white_plays(b) and black_is_ai):  # Flyt ind
+            ai_move = next_move(b, ai_difficulty)  # ik kald det ai
             move(ai_move, b)
             print(f"The computer moved a {color} piece from "
                   f"{source(ai_move)} to {target(ai_move)}")
