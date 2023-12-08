@@ -3,12 +3,13 @@ from minimax import *
 
 
 def input_bool(prompt: str) -> bool:
-    """Ask the user a question using prompt. Accept yes, y, no or n as answers.
+    """Ask the user a question using prompt.
+    Accept yes, y, no or n as answers.
     If the answer is invalid, ask the user again.
     """
-    answer = input(f"{prompt} (y/n)\n")  # .lower()
+    answer = input(f"{prompt} (y/n)\n")
     while answer not in ["yes", "y", "no", "n"]:
-        answer = input("Please enter yes or no.\n")
+        answer = input("Enter yes or no.\n")
     return answer in ["yes", "y"]
 
 
@@ -19,25 +20,23 @@ def input_int(minimum: int, maximum: int, prompt: str) -> int:
     """
     number = int(input(f"{prompt} ({minimum}-{maximum})\n"))
     while not minimum <= number <= maximum:
-        number = int(input(f"Please enter a number between"  # from/to og intet please
-                           f" {minimum} and {maximum}.\n"))
+        number = int(input(f"Enter a number from {minimum} to {maximum}.\n"))
     return number
 
 
 def input_move(b: Board) -> Move:
     """Ask the user for a legal move. Keep prompting until one is gotten."""
-    has_found_legal_move = False  # Dumt navn
-    while not has_found_legal_move:
+    found_legal_move = False
+    while not found_legal_move:
         src = input_int(1, 25, "What piece do you want to move?")
         trg = input_int(1, 25, "Where should the piece go?")
-        player_move = make_move(src, trg)
-        if is_legal(player_move, b):
-            has_found_legal_move = True
+        user_move = make_move(src, trg)
+        if is_legal(user_move, b):
+            found_legal_move = True
         else:
-            # The moves you can make
             print("That isn't possible. Here are the legal moves:")
-            print_moves(b)
-    return player_move
+            print_legal_moves(b)
+    return user_move
 
 
 def print_board(b: Board, dark_mode: bool) -> None:
@@ -61,11 +60,10 @@ def print_board(b: Board, dark_mode: bool) -> None:
           sep="\n")
 
 
-def print_moves(b: Board) -> None:
+def print_legal_moves(b: Board) -> None:
     """Print a list of the legal moves for a given board."""
-    for legal_move in legal_moves(b):  # Find en god løsning usen "," til sidst
-        print(f"{source(legal_move)} to {target(legal_move)}", end=", ")
-    print()
+    moves = [f"{source(m)} to {target(m)}" for m in legal_moves(b)]
+    print(", ".join(moves))
 
 
 def play_alquerque():
@@ -75,9 +73,9 @@ def play_alquerque():
     print("Before we start:\n")
 
     dark_mode = input_bool("Are you using dark mode?")
-    white_is_ai = input_bool("Should the computer play white?") #ik kald det ai
-    black_is_ai = input_bool("Should the computer play black?")
-    if white_is_ai or black_is_ai:
+    ai_white = input_bool("Should the computer play white?")
+    ai_black = input_bool("Should the computer play black?")
+    if ai_white or ai_black:
         ai_difficulty = input_int(1, 7, "How hard should the computer be?")
 
     print("\nThis is the game board with it's indices.\n")
@@ -102,17 +100,16 @@ def play_alquerque():
 
     while not is_game_over(b):
         print_board(b, dark_mode)
-        color = "white" if white_plays(b) else "black"
-        if (white_plays(b) and white_is_ai
-                or not white_plays(b) and black_is_ai):  # Flyt ind
-            ai_move = next_move(b, ai_difficulty)  # ik kald det ai
+        player_color = "white" if white_plays(b) else "black"
+        if white_plays(b) and ai_white or not white_plays(b) and ai_black:
+            ai_move = next_move(b, ai_difficulty)
             move(ai_move, b)
-            print(f"The computer moved a {color} piece from "
+            print(f"The computer moved a {player_color} piece from "
                   f"{source(ai_move)} to {target(ai_move)}")
         else:
-            print(f"Make a move for {color}.")
-            player_move = input_move(b)
-            move(player_move, b)
+            print(f"Make a move for {player_color}.")
+            user_move = input_move(b)
+            move(user_move, b)
         print()
 
     print_board(b, dark_mode)
