@@ -31,9 +31,8 @@ def input_move(b: Board) -> Move:
         src = input_int(1, 25, "What piece do you want to move?")
         trg = input_int(1, 25, "Where should the piece go?")
         user_move = make_move(src, trg)
-        if is_legal(user_move, b):
-            found_legal_move = True
-        else:
+        found_legal_move = is_legal(user_move, b)
+        if not found_legal_move:
             print("That isn't possible. Here are the legal moves:")
             print_legal_moves(b)
     return user_move
@@ -78,7 +77,8 @@ def play_alquerque():
     if ai_white or ai_black:
         ai_difficulty = input_int(1, 7, "How hard should the computer be?")
 
-    print("\nThis is the game board with it's indices.\n")
+    print("\nThis is the game board with it's indices.",
+          "These will be used when moving.\n")
 
     print("1  - 2  - 3  - 4  - 5",
           "|  \ |  / |  \ |  / |",
