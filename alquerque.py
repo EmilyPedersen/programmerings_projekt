@@ -61,8 +61,9 @@ def print_board(b: Board, dark_mode: bool) -> None:
 
 def print_legal_moves(b: Board) -> None:
     """Print a list of the legal moves for a given board."""
-    moves = [f"{source(m)} to {target(m)}" for m in legal_moves(b)]
-    print(", ".join(moves))
+    for m in legal_moves(b):
+        print(f"{source(m)} to {target(m)}, ", end="")
+    print()
 
 
 def play_alquerque():
