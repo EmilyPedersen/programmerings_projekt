@@ -116,9 +116,9 @@ def play_alquerque():
     print_board(b, dark_mode)
     print("    Game over\n")
 
-    if not white(b):
+    if white(b) != []:
         print("Black has won!")
-    elif not black(b):
+    elif black(b) != []:
         print("White has won!")
     else:
         print("It's a draw!")
