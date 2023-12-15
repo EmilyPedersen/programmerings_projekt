@@ -111,7 +111,6 @@ def play_alquerque():
             print(f"Make a move for {player_color}.")
             player_move = input_move(b)
         move(player_move, b)
-        
 
     print_board(b, dark_mode)
     print("    Game over\n")
