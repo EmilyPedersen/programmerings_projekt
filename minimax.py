@@ -13,16 +13,13 @@ def next_move(b: Board, depth: int = 3) -> Move:
 
 @dataclass
 class Tree:
-    first_child: 'Node'
-    board: Board
+    root: 'Node'
     depth: int
-    value: int
 
 
 @dataclass
 class Node:
-    next_sibling: 'Node'
-    first_child: 'Node'
+    children: list['Node']
     board: Board
     move: Move
     value: int
