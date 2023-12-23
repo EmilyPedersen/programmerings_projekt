@@ -33,12 +33,26 @@ class Node:
 
 def make_tree(b: Board, depth: int) -> Tree:
     """Make a new minimax tree with the given board and depth."""
+    new_board = copy(b)
+    children = []
+    for legal_move in legal_moves(new_board):
+        child_node = make_node(new_board, legal_move, depth-1)
+        children.append(child_node)
+    return Tree(children, b, depth)
 
 
 def make_node(b: Board, move: Move, depth: int) -> Node:
     """Make a new node (and its children) where
     move has been made on the given board with depth.
     """
+    new_board = copy(b)
+    move(m, new_board)
+    children = []
+    if depth > 0 and not is_game_over(new_board):
+        for legal_move in legal_moves(new_board):
+            child_node = make_node(new_board, legal_move, depth-1)
+            children.append(child_node)
+    return Node(children, new_board, m, -1)
 
 
 def rate_tree(t: Tree) -> None:
