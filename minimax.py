@@ -11,9 +11,7 @@ def next_move(b: Board, depth: int = 3) -> Move:
     """
     t = make_tree(b, depth)
     rate_tree(t)
-    max_node = reduce(lambda mn, n: n if n.value > mn.value else mn,
-                      t.children)
-    return max_node.move
+    return max_node(t.children).move
 
 
 @dataclass
@@ -58,28 +56,21 @@ def make_node(b: Board, m: Move, depth: int) -> Node:
 def rate_tree(t: Tree) -> None:
     """Rate all the nodes in the tree."""
     for child in t.children:
-        rate_node(child, 1, white_plays(t.board))
+        rate_node(child, white_plays(t.board))
 
 
-def rate_node(n: Node, layer: int, white_player: bool) -> None:
-    """Rate a node and all its children.
-    Return the value that a parent would have.
-    The layer is used to determine whether
-    the node is a min or max node.
-    """
+def rate_node(n: Node, white_player: bool) -> None:
+    """Rate a node and all its children."""
     if n.children == []:
         n.value = rate_board(n.board, white_player)
     else:
-        values = []
         for child in n.children:
-            rate_node(child, layer + 1, white_player)
-            values.append(child.value)
+            rate_node(child, white_player)
 
-        if layer % 2 == 1:
-            n.value = reduce(lambda x, y: y if y < x else x, values, values[0])
-
+        if white_plays(n.board) and white_player:
+            n.value = max_node(n.children).value
         else:
-            n.value = reduce(lambda x, y: y if y > x else x, values, values[0])
+            n.value = mini_node(n.children).value
 
 
 def rate_board(b: Board, white_player: bool) -> float:
@@ -91,3 +82,13 @@ def rate_board(b: Board, white_player: bool) -> float:
     opponents = b.black if white_player else b.white
     # Vi burde nok få den til at undgå uafgjorte kampe.
     return len(players) / len(opponents) if len(opponents) > 0 else 100
+
+
+def max_node(nodes: list[Node]) -> Node:
+    """Return the node with the greatest value."""
+    return reduce(lambda mn, n: n if n.value > mn.value else mn, nodes)
+
+
+def mini_node(nodes: list[Node]) -> Node:
+    """Return the node with the smallest value."""
+    return reduce(lambda mn, n: n if n.value < mn.value else mn, nodes)
