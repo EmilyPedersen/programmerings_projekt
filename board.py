@@ -50,8 +50,9 @@ def legal_moves(b: Board) -> list[Move]:
     [Move(source=17, target=13), Move(source=18, target=13), Move(source=19, target=13)]
     """
     moves = []
+    free_indices = [i for i in range(1, 26) if _is_free(i, b)]
     for source_index in _players_pieces(b):
-        for target_index in range(1, 26):
+        for target_index in free_indices:
             move = make_move(source_index, target_index)
             if is_legal(move, b):
                 moves.append(move)
