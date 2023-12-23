@@ -13,7 +13,8 @@ def next_move(b: Board, depth: int = 3) -> Move:
 
 @dataclass
 class Tree:
-    root: 'Node'
+    children: list['Node']
+    board: Board
     depth: int
 
 
