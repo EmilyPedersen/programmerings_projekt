@@ -41,7 +41,7 @@ def make_tree(b: Board, depth: int) -> Tree:
     return Tree(children, b, depth)
 
 
-def make_node(b: Board, move: Move, depth: int) -> Node:
+def make_node(b: Board, m: Move, depth: int) -> Node:
     """Make a new node (and its children) where
     move has been made on the given board with depth.
     """
@@ -57,14 +57,28 @@ def make_node(b: Board, move: Move, depth: int) -> Node:
 
 def rate_tree(t: Tree) -> None:
     """Rate all the nodes in the tree."""
+    for child in t.children:
+        rate_node(child, 1)
 
 
-def rate_node(n: Node, layer: int, white_player: bool) -> float:
+def rate_node(n: Node, layer: int) -> None:
     """Rate a node and all its children.
     Return the value that a parent would have.
     The layer is used to determine whether
     the node is a min or max node.
     """
+    if n.children == []:
+        n.value = rate_board(n.board)
+    else:
+        values = []
+        for child in n.children:
+            values.append(rate_node(child, layer + 1).value)
+        
+        if layer % 2 == 1:
+            n.value = reduce(lambda x,y: y if y < x else x, values, values[0])
+        
+        else:
+            n.value = reduce(lambda x,y: y if y > x else x, values, values[0])
 
 
 def rate_board(b: Board, white_player: bool) -> float:
