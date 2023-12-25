@@ -67,7 +67,7 @@ def rate_node(n: Node, white_player: bool) -> None:
         for child in n.children:
             rate_node(child, white_player)
 
-        if white_plays(n.board) and white_player:
+        if white_player == white_plays(n.board):
             n.value = max_node(n.children).value
         else:
             n.value = mini_node(n.children).value
