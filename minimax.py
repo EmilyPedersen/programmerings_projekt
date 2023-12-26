@@ -18,7 +18,6 @@ def next_move(b: Board, depth: int = 3) -> Move:
 class Tree:
     children: list['Node']
     board: Board
-    depth: int
 
 
 @dataclass
@@ -36,7 +35,7 @@ def make_tree(b: Board, depth: int) -> Tree:
     for legal_move in legal_moves(new_board):
         child_node = make_node(new_board, legal_move, depth-1)
         children.append(child_node)
-    return Tree(children, b, depth)
+    return Tree(children, b)
 
 
 def make_node(b: Board, m: Move, depth: int) -> Node:
