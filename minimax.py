@@ -8,6 +8,7 @@ from move import *
 def next_move(b: Board, depth: int = 3) -> Move:
     """Return the best move for the next player.
     Find this by building a minimax tree with the given board and depth.
+    Requires: depth > 0
     """
     t = make_tree(b, depth)
     rate_tree(t)
@@ -30,26 +31,27 @@ class Node:
 
 def make_tree(b: Board, depth: int) -> Tree:
     """Make a new minimax tree with the given board and depth."""
-    new_board = copy(b)
-    children = []
-    for legal_move in legal_moves(new_board):
-        child_node = make_node(new_board, legal_move, depth-1)
-        children.append(child_node)
+    children = make_children(b, depth-1)
     return Tree(children, b)
 
 
 def make_node(b: Board, m: Move, depth: int) -> Node:
     """Make a new node (and its children) where
-    move has been made on the given board with depth.
+    move has been made on the given board.
     """
-    new_board = copy(b)
-    move(m, new_board)
+    children = make_children(b, depth-1) if depth > 0 else []
+    return Node(children, b, m, -1)
+
+
+def make_children(b: Board, depth: int) -> list[Node]:
+    """Make a node for each move on the board."""
     children = []
-    if depth > 0 and not is_game_over(new_board):
-        for legal_move in legal_moves(new_board):
-            child_node = make_node(new_board, legal_move, depth-1)
-            children.append(child_node)
-    return Node(children, new_board, m, -1)
+    for legal_move in legal_moves(b):
+        child_board = copy(b)
+        move(legal_move, child_board)
+        child_node = make_node(child_board, legal_move, depth)
+        children.append(child_node)
+    return children
 
 
 def rate_tree(t: Tree) -> None:
