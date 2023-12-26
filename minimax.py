@@ -85,6 +85,26 @@ def rate_board(b: Board, white_player: bool) -> float:
     return len(players) / len(opponents) if len(opponents) > 0 else 100
 
 
+def new_rate_board(b: Board, white_player: bool) -> float:
+    """Return a value telling how good
+    the given board is for the current player.
+    This is our heuristic.
+    """
+    players = b.white if white_player else b.black
+    opponents = b.black if white_player else b.white
+    # Vi burde nok få den til at undgå uafgjorte kampe.
+
+    ratio = len(players) / len(opponents) if len(opponents) > 0 else 100
+    if is_tie(b):
+        return 1 / ratio
+    else:
+        return ratio
+
+def is_tie(b: Board) -> bool:
+    """"""
+    return is_game_over(b) and black(b) != [] and white(b) != []
+
+
 def max_node(nodes: list[Node]) -> Node:
     """Return the node with the greatest value."""
     return reduce(lambda mn, n: n if n.value > mn.value else mn, nodes)
