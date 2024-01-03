@@ -10,15 +10,9 @@ def next_move(b: Board, depth: int = 3) -> Move:
     Find this by building a minimax tree with the given board and depth.
     Requires: depth > 0
     """
-    t = make_tree(b, depth)
-    rate_tree(t)
-    return max_node(t.children).move
-
-
-@dataclass
-class Tree:
-    children: list['Node']
-    board: Board
+    root = make_node(b, None, depth)
+    rate_node(root, white_plays(b))
+    return max_node(root.children).move
 
 
 @dataclass
@@ -29,35 +23,18 @@ class Node:
     value: float
 
 
-def make_tree(b: Board, depth: int) -> Tree:
-    """Make a new minimax tree with the given board and depth."""
-    children = make_children(b, depth-1)
-    return Tree(children, b)
-
-
 def make_node(b: Board, m: Move, depth: int) -> Node:
     """Make a new node (and its children) where
     move has been made on the given board.
     """
-    children = make_children(b, depth-1) if depth > 0 else []
-    return Node(children, b, m, -1)
-
-
-def make_children(b: Board, depth: int) -> list[Node]:
-    """Make a node for each move on the board."""
     children = []
-    for legal_move in legal_moves(b):
-        child_board = copy(b)
-        move(legal_move, child_board)
-        child_node = make_node(child_board, legal_move, depth)
-        children.append(child_node)
-    return children
-
-
-def rate_tree(t: Tree) -> None:
-    """Rate all the nodes in the tree."""
-    for child in t.children:
-        rate_node(child, white_plays(t.board))
+    if depth > 0:
+        for legal_move in legal_moves(b):
+            child_board = copy(b)
+            move(legal_move, child_board)
+            child_node = make_node(child_board, legal_move, depth-1)
+            children.append(child_node)
+    return Node(children, b, m, None)
 
 
 def rate_node(n: Node, white_player: bool) -> None:
@@ -71,7 +48,7 @@ def rate_node(n: Node, white_player: bool) -> None:
         if white_player == white_plays(n.board):
             n.value = max_node(n.children).value
         else:
-            n.value = mini_node(n.children).value
+            n.value = min_node(n.children).value
 
 
 def rate_board(b: Board, white_player: bool) -> float:
@@ -81,27 +58,12 @@ def rate_board(b: Board, white_player: bool) -> float:
     """
     players = b.white if white_player else b.black
     opponents = b.black if white_player else b.white
-    # Vi burde nok få den til at undgå uafgjorte kampe.
-    return len(players) / len(opponents) if len(opponents) > 0 else 100
-
-
-def new_rate_board(b: Board, white_player: bool) -> float:
-    """Return a value telling how good
-    the given board is for the current player.
-    This is our heuristic.
-    """
-    players = b.white if white_player else b.black
-    opponents = b.black if white_player else b.white
-    # Vi burde nok få den til at undgå uafgjorte kampe.
-
     ratio = len(players) / len(opponents) if len(opponents) > 0 else 100
-    if is_tie(b):
-        return 1 / ratio
-    else:
-        return ratio
+    return ratio if not is_tie(b) else 1 / ratio
+
 
 def is_tie(b: Board) -> bool:
-    """"""
+    """Return true if the game is a tie and false otherwise."""
     return is_game_over(b) and black(b) != [] and white(b) != []
 
 
@@ -110,6 +72,6 @@ def max_node(nodes: list[Node]) -> Node:
     return reduce(lambda mn, n: n if n.value > mn.value else mn, nodes)
 
 
-def mini_node(nodes: list[Node]) -> Node:
+def min_node(nodes: list[Node]) -> Node:
     """Return the node with the smallest value."""
     return reduce(lambda mn, n: n if n.value < mn.value else mn, nodes)
