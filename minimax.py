@@ -12,7 +12,7 @@ def next_move(b: Board, depth: int = 3) -> Move:
     """
     root = make_tree(b, None, depth)
     rate_tree(root, white_plays(b))
-    return max_node(root.children).move
+    return _max_node(root.children).move
 
 
 @dataclass
@@ -47,9 +47,9 @@ def rate_tree(n: Node, white_player: bool) -> None:
             rate_tree(child, white_player)
 
         if white_player == white_plays(n.board):
-            n.value = max_node(n.children).value
+            n.value = _max_node(n.children).value
         else:
-            n.value = min_node(n.children).value
+            n.value = _min_node(n.children).value
 
 
 def rate_board(b: Board, white_player: bool) -> float:
@@ -60,19 +60,19 @@ def rate_board(b: Board, white_player: bool) -> float:
     players = b.white if white_player else b.black
     opponents = b.black if white_player else b.white
     ratio = len(players) / len(opponents) if len(opponents) > 0 else 100
-    return ratio if not is_tie(b) else 1 / ratio
+    return ratio if not _is_tie(b) else 1 / ratio
 
 
-def is_tie(b: Board) -> bool:
+def _is_tie(b: Board) -> bool:
     """Return true if the game is a tie and false otherwise."""
     return is_game_over(b) and black(b) != [] and white(b) != []
 
 
-def max_node(nodes: list[Node]) -> Node:
+def _max_node(nodes: list[Node]) -> Node:
     """Return the node with the greatest value."""
     return reduce(lambda mn, n: n if n.value > mn.value else mn, nodes)
 
 
-def min_node(nodes: list[Node]) -> Node:
+def _min_node(nodes: list[Node]) -> Node:
     """Return the node with the smallest value."""
     return reduce(lambda mn, n: n if n.value < mn.value else mn, nodes)
