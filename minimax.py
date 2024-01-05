@@ -10,8 +10,8 @@ def next_move(b: Board, depth: int = 3) -> Move:
     Find this by building a minimax tree with the given board and depth.
     Requires: depth > 0
     """
-    root = make_node(b, None, depth)
-    rate_node(root, white_plays(b))
+    root = make_tree(b, None, depth)
+    rate_tree(root, white_plays(b))
     return max_node(root.children).move
 
 
@@ -23,27 +23,28 @@ class Node:
     value: float
 
 
-def make_node(b: Board, m: Move, depth: int) -> Node:
-    """Make a new node (and its children) where
-    move has been made on the given board.
+def make_tree(b: Board, m: Move, depth: int) -> Node:
+    """Make a tree recursively and return the root node.
+    Each node will have a child for each legal move on its board.
+    The trees depth is equal to the argument depth.
     """
     children = []
     if depth > 0:
         for legal_move in legal_moves(b):
             child_board = copy(b)
             move(legal_move, child_board)
-            child_node = make_node(child_board, legal_move, depth-1)
+            child_node = make_tree(child_board, legal_move, depth-1)
             children.append(child_node)
     return Node(children, b, m, None)
 
 
-def rate_node(n: Node, white_player: bool) -> None:
-    """Rate a node and all its children."""
+def rate_tree(n: Node, white_player: bool) -> None:
+    """Rate a node and all its children recursively."""
     if n.children == []:
         n.value = rate_board(n.board, white_player)
     else:
         for child in n.children:
-            rate_node(child, white_player)
+            rate_tree(child, white_player)
 
         if white_player == white_plays(n.board):
             n.value = max_node(n.children).value
