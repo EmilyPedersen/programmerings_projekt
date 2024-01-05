@@ -35,7 +35,7 @@ def make_tree(b: Board, m: Move, depth: int) -> Node:
             move(legal_move, child_board)
             child_node = make_tree(child_board, legal_move, depth-1)
             children.append(child_node)
-    return Node(children, b, m, None)
+    return Node(children, b, m, 0)
 
 
 def rate_tree(n: Node, white_player: bool) -> None:
