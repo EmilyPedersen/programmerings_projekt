@@ -57,8 +57,8 @@ def rate_board(b: Board, white_player: bool) -> float:
     the given board is for the current player.
     This is our heuristic.
     """
-    players = b.white if white_player else b.black
-    opponents = b.black if white_player else b.white
+    players = white(b) if white_player else black(b)
+    opponents = black(b) if white_player else white(b)
     ratio = len(players) / len(opponents) if len(opponents) > 0 else 100
     return ratio if not _is_tie(b) else 1 / ratio
 

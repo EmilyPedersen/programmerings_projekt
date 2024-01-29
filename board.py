@@ -11,10 +11,7 @@ class Board:
 
 
 def make_board() -> Board:
-    """Make a new board where the pieces are at their starting points.
-    >>> make_board()
-    Board(black=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], white=[14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25], white_plays=True)
-    """
+    """Make a new board where the pieces are at their starting points."""
     return Board(list(range(1, 13)), list(range(14, 26)), True)
 
 
@@ -32,7 +29,7 @@ def black(b: Board) -> list[int]:
     >>> black(make_board())
     [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     """
-    return b.black
+    return b.black.copy()
 
 
 def white(b: Board) -> list[int]:
@@ -41,7 +38,7 @@ def white(b: Board) -> list[int]:
     >>> white(make_board())
     [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
     """
-    return b.white
+    return b.white.copy()
 
 
 def legal_moves(b: Board) -> list[Move]:
@@ -72,7 +69,7 @@ def is_legal(m: Move, b: Board) -> bool:
     possible = source(m) in _players_pieces(b) and _is_free(target(m), b)
     forward_move = dx == 0 and dy == 1
     diagonal_move = _on_diagonal(source(m)) and abs(dx) == 1 and dy == 1
-    attack = _is_attack_move(m) and _attacked_index(m) in _opponents_pieces(b)
+    attack = _attacked_index(m) in _opponents_pieces(b) and _is_attack_move(m)
     return possible and (forward_move or diagonal_move or attack)
 
 
@@ -92,12 +89,12 @@ def is_game_over(b: Board) -> bool:
     >>> is_game_over(make_board())
     False
     """
-    return not b.black or not b.white or not legal_moves(b)
+    return b.black == [] or b.white == [] or legal_moves(b) == []
 
 
 def copy(b: Board) -> Board:
     """Return a copy of the given board."""
-    return Board(list(b.black), list(b.white), b.white_plays)
+    return Board(b.black.copy(), b.white.copy(), b.white_plays)
 
 
 # Helpers

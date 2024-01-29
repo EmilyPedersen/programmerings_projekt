@@ -9,6 +9,7 @@ class Move:
 
 def make_move(scr: int, trg: int) -> Move:
     """Return a move between the two indicies. 
+    Requires: 1 <= src <= 25 and 1 <= trg <= 25
     >>> make_move(13, 8)
     Move(source=13, target=8)
     """
